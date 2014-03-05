@@ -22,6 +22,15 @@ describe("fscloner", function() {
 				}
 			});
 		});
+		describe("with nonexistant destination folder", function() {
+			it("should create the destination folder", function() {
+				var fs = mockFs({
+					"src": { }
+				});
+				fscloner.clone("/src", "/dest", function(src, dest) {});
+				assert.ok(fs.existsSync("/dest"));
+			});
+		});
 		describe("with single file", function() {
 			it("should call the copyFunc with the file", function(done) {
 				mockFs({

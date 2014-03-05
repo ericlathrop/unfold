@@ -1,7 +1,31 @@
 var path = require("path");
 var fs = require("fs");
 
-function clone(srcDir, destDir, copyFunc) {
+function clone(src, dest, copyFunc) {
+	fs.stat(src, function(err, stat) {
+		if (err) {
+			throw err;
+		}
+		if (stat.isDirectory()) {
+			fs.exists(dest, function(exists) {
+				if (exists) {
+					cloneDir(src, dest, copyFunc);
+				} else {
+					fs.mkdir(dest, function(err) {
+						if (err) {
+							throw err;
+						}
+						cloneDir(src, dest, copyFunc);
+					});
+				}
+			});
+		} else {
+			copyFunc(src, dest);
+		}
+	});
+}
+
+function cloneDir(srcDir, destDir, copyFunc) {
 	fs.readdir(srcDir, function(err, files) {
 		if (err) {
 			throw err;
@@ -10,20 +34,7 @@ function clone(srcDir, destDir, copyFunc) {
 			var file = files[i];
 			var src = path.join(srcDir, file);
 			var dest = path.join(destDir, file);
-			cloneFile(src, dest, copyFunc, file);
-		}
-	});
-}
-
-function cloneFile(src, dest, copyFunc, file) {
-	fs.stat(src, function(err, stat) {
-		if (err) {
-			throw err;
-		}
-		if (stat.isDirectory()) {
 			clone(src, dest, copyFunc);
-		} else {
-			copyFunc(src, dest);
 		}
 	});
 }
