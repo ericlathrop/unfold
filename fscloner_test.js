@@ -36,5 +36,21 @@ describe("fscloner", function() {
 				});
 			});
 		});
+		describe("with file nested in a folder", function() {
+			it("should call the copyFunc with the file", function(done) {
+				mockFs({
+					"src": {
+						"a": {
+							"b.txt": "hello world"
+						}
+					}
+				});
+				fscloner.clone("/src", "/dest", function(src, dest) {
+					assert.equal("/src/a/b.txt", src);
+					assert.equal("/dest/a/b.txt", dest);
+					done();
+				});
+			});
+		});
 	});
 });
