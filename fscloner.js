@@ -30,7 +30,7 @@ function cloneDir(srcDir, destDir, copyFunc) {
 			var dest = path.join(destDir, file);
 			copyPromises.push(clone(src, dest, copyFunc));
 		}
-		return Q.all(copyPromises);
+		return q.all(copyPromises);
 	});
 }
 
