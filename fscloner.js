@@ -11,7 +11,7 @@ function clone(src, dest, copyFunc) {
 			return stat(dest).fail(function() {
 				return mkdir(dest);
 			}).then(function() {
-				cloneDir(src, dest, copyFunc);
+				return cloneDir(src, dest, copyFunc);
 			});
 		} else {
 			return copyFunc(src, dest);

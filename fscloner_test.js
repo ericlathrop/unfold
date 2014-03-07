@@ -1,7 +1,6 @@
 var rewire = require("rewire");
 var fscloner = rewire("./fscloner");
 var assert = require("assert");
-
 var FS = require("fs-mock");
 
 function mockFs(structure) {
@@ -44,6 +43,21 @@ describe("fscloner", function() {
 					assert.equal("/dest/a.txt", dest);
 					done();
 				}).done();
+			});
+			describe("with a copyFunc that returns a value", function() {
+				it("should return the value", function(done) {
+					mockFs({
+						"src": {
+							"a.txt": "hello world"
+						}
+					});
+					fscloner.clone("/src", "/dest", function(src, dest) {
+						return 42;
+					}).done(function(val) {
+						assert.equal(42, val);
+						done();
+					});
+				});
 			});
 		});
 		describe("with file nested in a folder", function() {
