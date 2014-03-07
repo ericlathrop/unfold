@@ -1,41 +1,36 @@
 var path = require("path");
 var fs = require("fs");
+var q = require("q");
 
 function clone(src, dest, copyFunc) {
-	fs.stat(src, function(err, stat) {
-		if (err) {
-			throw err;
-		}
-		if (stat.isDirectory()) {
-			fs.exists(dest, function(exists) {
-				if (exists) {
-					cloneDir(src, dest, copyFunc);
-				} else {
-					fs.mkdir(dest, function(err) {
-						if (err) {
-							throw err;
-						}
-						cloneDir(src, dest, copyFunc);
-					});
-				}
+	var stat = q.denodeify(fs.stat.bind(fs));
+	var mkdir = q.denodeify(fs.mkdir.bind(fs));
+
+	return stat(src).then(function(srcStat) {
+		if (srcStat.isDirectory()) {
+			return stat(dest).fail(function() {
+				return mkdir(dest);
+			}).then(function() {
+				cloneDir(src, dest, copyFunc);
 			});
 		} else {
-			copyFunc(src, dest);
+			return copyFunc(src, dest);
 		}
 	});
 }
 
 function cloneDir(srcDir, destDir, copyFunc) {
-	fs.readdir(srcDir, function(err, files) {
-		if (err) {
-			throw err;
-		}
+	var readdir = q.denodeify(fs.readdir.bind(fs));
+
+	return readdir(srcDir).then(function(files) {
+		var copyPromises = [];
 		for (var i = 0; i < files.length; i++) {
 			var file = files[i];
 			var src = path.join(srcDir, file);
 			var dest = path.join(destDir, file);
-			clone(src, dest, copyFunc);
+			copyPromises.push(clone(src, dest, copyFunc));
 		}
+		return Q.all(copyPromises);
 	});
 }
 
