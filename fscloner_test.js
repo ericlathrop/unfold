@@ -12,7 +12,7 @@ function mockFs(structure) {
 describe("fscloner", function() {
 	describe("clone", function() {
 		describe("with nonexistant source folder", function() {
-			it("should explode", function(done) {
+			it("should return a failing promise", function(done) {
 				mockFs({})
 				fscloner.clone("/src", "/dest", function(src, dest) {}).then(function() {
 				}).fail(function(reason) {
