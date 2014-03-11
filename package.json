@@ -2,7 +2,7 @@
   "name": "ssg",
   "version": "0.0.0",
   "description": "Static Site Generator",
-  "main": "fscloner.js",
+  "main": "fs_extra.js",
   "dependencies": {
     "rewire": "~2.0.0",
     "fs-mock": "~1.1.0",
