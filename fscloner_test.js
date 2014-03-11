@@ -41,8 +41,9 @@ describe("fscloner", function() {
 				fscloner.clone("/src", "/dest", function(src, dest) {
 					assert.equal("/src/a.txt", src);
 					assert.equal("/dest/a.txt", dest);
+				}).done(function() {
 					done();
-				}).done();
+				});
 			});
 			describe("with a copyFunc that returns a value", function() {
 				it("should return the value", function(done) {
@@ -72,8 +73,9 @@ describe("fscloner", function() {
 				fscloner.clone("/src", "/dest", function(src, dest) {
 					assert.equal("/src/a/b.txt", src);
 					assert.equal("/dest/a/b.txt", dest);
+				}).done(function() {
 					done();
-				}).done();
+				});
 			});
 		});
 	});
