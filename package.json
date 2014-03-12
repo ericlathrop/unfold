@@ -4,7 +4,8 @@
   "description": "Static Site Generator",
   "main": "fs_extra.js",
   "dependencies": {
-    "q": "^1.0.0"
+    "q": "^1.0.0",
+    "handlebars": "^2.0.0-alpha.2"
   },
   "devDependencies": {
     "mocha": "~1.17.1",
