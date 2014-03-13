@@ -35,4 +35,18 @@ describe("transformHandlebars", function() {
 			});
 		});
 	});
+	describe("with a template that has a layout", function() {
+		it("should wrap the layout around the template", function(done) {
+			var fs = mockFs({
+				"layout.hbs": "start {{> body}} end",
+				"src.txt.hbs": "middle"
+			});
+			var context = {"layout": "/layout.hbs"};
+			transformHandlebars("/src.txt.hbs", "/dest.txt.hbs", context).done(function() {
+				var data = fs.readFileSync("/dest.txt");
+				assert.equal("start middle end", data);
+				done();
+			});
+		});
+	});
 });
