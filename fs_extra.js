@@ -69,7 +69,7 @@ function copy(src, dest) {
 	read.pipe(write);
 
 	return deferred.promise;
-};
+}
 
 module.exports = {
 	clone: clone,
