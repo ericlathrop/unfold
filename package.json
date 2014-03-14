@@ -37,6 +37,11 @@
 		"quotmark": "double",
 		"unused": "strict",
 		"trailing": true,
-		"node": true
+		"node": true,
+		"globalstrict": true,
+		"globals": {
+			"describe": false,
+			"it": false
+		}
 	}
 }

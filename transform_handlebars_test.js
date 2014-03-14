@@ -1,3 +1,5 @@
+"use strict";
+
 var rewire = require("rewire");
 var transformHandlebars = rewire("./transform_handlebars");
 var assert = require("assert");

@@ -1,3 +1,5 @@
+"use strict";
+
 var rewire = require("rewire");
 var fsExtra = rewire("./fs_extra");
 var assert = require("assert");
