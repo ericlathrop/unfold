@@ -1,22 +1,22 @@
 {
-  "name": "ssg",
-  "version": "0.0.0",
-  "description": "Static Site Generator",
-  "main": "fs_extra.js",
-  "dependencies": {
-    "q": "^1.0.0",
-    "handlebars": "^2.0.0-alpha.2"
-  },
-  "devDependencies": {
-    "mocha": "~1.17.1",
-    "rewire": "~2.0.0",
-    "fs-mock": "^1.1.2",
-    "jshint": "^2.4.4"
-  },
-  "scripts": {
-    "test": "mocha .",
-    "jshint": "jshint *.js"
-  },
-  "author": "Eric Lathrop",
-  "license": "BSD"
+	"name": "ssg",
+	"version": "0.0.0",
+	"description": "Static Site Generator",
+	"main": "fs_extra.js",
+	"dependencies": {
+		"q": "^1.0.0",
+		"handlebars": "^2.0.0-alpha.2"
+	},
+	"devDependencies": {
+		"mocha": "~1.17.1",
+		"rewire": "~2.0.0",
+		"fs-mock": "^1.1.2",
+		"jshint": "^2.4.4"
+	},
+	"scripts": {
+		"test": "mocha .",
+		"jshint": "jshint *.js"
+	},
+	"author": "Eric Lathrop",
+	"license": "BSD"
 }
