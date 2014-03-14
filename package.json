@@ -18,5 +18,25 @@
 		"jshint": "jshint *.js"
 	},
 	"author": "Eric Lathrop",
-	"license": "BSD"
+	"license": "BSD",
+	"jshintConfig": {
+		"bitwise": true,
+		"camelcase": true,
+		"curly": true,
+		"eqeqeq": true,
+		"forin": true,
+		"freeze": true,
+		"immed": true,
+		"indent": 4,
+		"latedef": "nofunc",
+		"newcap": true,
+		"noarg": true,
+		"noempty": true,
+		"nonbsp": true,
+		"nonew": true,
+		"quotmark": "double",
+		"unused": "strict",
+		"trailing": true,
+		"node": true
+	}
 }

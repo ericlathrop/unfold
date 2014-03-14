@@ -30,7 +30,7 @@ function traverse(file, visitFunc) {
 		var p = q(visitFunc(file, fileStat));
 
 		if (fileStat.isDirectory()) {
-			return p.then(function(val) {
+			return p.then(function() {
 				return traverseDir(file, visitFunc);
 			});
 		}

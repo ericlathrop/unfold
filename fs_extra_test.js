@@ -14,8 +14,8 @@ describe("fsExtra", function() {
 		describe("with nonexistant source folder", function() {
 			it("should return a failing promise", function(done) {
 				mockFs({});
-				fsExtra.clone("/src", "/dest", function(src, dest) {}).then(function() {
-				}).fail(function(reason) {
+				fsExtra.clone("/src", "/dest", function() {}).then(function() {
+				}).fail(function() {
 					done();
 				});
 			});
@@ -25,7 +25,7 @@ describe("fsExtra", function() {
 				var fs = mockFs({
 					"src": { }
 				});
-				fsExtra.clone("/src", "/dest", function(src, dest) {}).done(function() {
+				fsExtra.clone("/src", "/dest", function() {}).done(function() {
 					assert.ok(fs.existsSync("/dest"));
 					done();
 				});
@@ -52,7 +52,7 @@ describe("fsExtra", function() {
 							"a.txt": "hello world"
 						}
 					});
-					fsExtra.clone("/src", "/dest", function(src, dest) {
+					fsExtra.clone("/src", "/dest", function() {
 						return 42;
 					}).done(function(val) {
 						assert.equal(42, val);
@@ -83,7 +83,7 @@ describe("fsExtra", function() {
 		describe("with nonexistant source file", function() {
 			it("should return a failing promise", function(done) {
 				mockFs({});
-				fsExtra.copy("/src.txt", "/dest.txt").fail(function(err) {
+				fsExtra.copy("/src.txt", "/dest.txt").fail(function() {
 					done();
 				});
 			});
@@ -94,7 +94,7 @@ describe("fsExtra", function() {
 					"src.txt": "hello world",
 					"dest": {}
 				});
-				fsExtra.copy("/src.txt", "/dest").fail(function(err) {
+				fsExtra.copy("/src.txt", "/dest").fail(function() {
 					done();
 				});
 			});
