@@ -65,4 +65,61 @@ describe("config", function() {
 			});
 		});
 	});
+	describe("forSourceFile", function() {
+		describe("with global data and no per-page data", function() {
+			it("should return the global data", function() {
+				var cfg = {
+					data: {
+						name: "world"
+					}
+				};
+				var actual = config.forSourceFile("/src.txt", cfg);
+				assert.equal(actual.name, "world");
+			});
+		});
+		describe("with per-page data", function() {
+			it("should override the global data", function() {
+				var cfg = {
+					pages: {
+						"/src.txt": {
+							name: "dude"
+						}
+					},
+					data: {
+						name: "world"
+					}
+				};
+				var actual = config.forSourceFile("/src.txt", cfg);
+				assert.equal(actual.name, "dude");
+			});
+			it("should not clobber a property that is not overridden", function() {
+				var cfg = {
+					pages: {
+						"/src.txt": {
+							other: "dude"
+						}
+					},
+					data: {
+						name: "world"
+					}
+				};
+				var actual = config.forSourceFile("/src.txt", cfg);
+				assert.equal(actual.name, "world");
+			});
+			it("should not modify the original data", function() {
+				var cfg = {
+					pages: {
+						"/src.txt": {
+							name: "dude"
+						}
+					},
+					data: {
+						name: "world"
+					}
+				};
+				config.forSourceFile("/src.txt", cfg);
+				assert.equal(cfg.data.name, "world");
+			});
+		});
+	});
 });

@@ -5,7 +5,8 @@
 	"main": "fs_extra.js",
 	"dependencies": {
 		"q": "^1.0.0",
-		"handlebars": "^2.0.0-alpha.2"
+		"handlebars": "^2.0.0-alpha.2",
+		"merge": "^1.1.2"
 	},
 	"devDependencies": {
 		"mocha": "~1.17.1",

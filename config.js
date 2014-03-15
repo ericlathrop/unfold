@@ -2,6 +2,7 @@
 
 var q = require("q");
 var fs = require("fs");
+var merge = require("merge");
 
 function load(filename) {
 	var readFile = q.denodeify(fs.readFile.bind(fs));
@@ -18,6 +19,15 @@ function load(filename) {
 	});
 }
 
+function forSourceFile(filename, config) {
+	var data = merge(true, config.data);
+	if (config.pages && config.pages[filename]) {
+		data = merge(data, config.pages[filename]);
+	}
+	return data;
+}
+
 module.exports = {
-	load: load
+	load: load,
+	forSourceFile: forSourceFile
 };
