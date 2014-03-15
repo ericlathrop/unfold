@@ -1,8 +1,10 @@
 "use strict";
 
-var q = require("q");
 var fs = require("fs");
+var fsExtra = require("./fs_extra");
 var merge = require("merge");
+var path = require("path");
+var q = require("q");
 
 function load(filename) {
 	var readFile = q.denodeify(fs.readFile.bind(fs));
@@ -15,7 +17,31 @@ function load(filename) {
 		if (!config.destinationDirectory) {
 			throw new Error("config error in " + filename + ": destinationDirectory is required");
 		}
+		if (config.dataDirectory) {
+			return readDataDirectory(config.dataDirectory).then(function(externalData) {
+				config.data = config.data || {};
+				config.data = merge(config.data, externalData);
+				return config;
+			});
+		}
 		return config;
+	});
+}
+
+function readDataDirectory(dataDirectory) {
+	var readFile = q.denodeify(fs.readFile.bind(fs));
+
+	var externalData = {};
+	return fsExtra.traverse(dataDirectory, function(filename, stat) {
+		if (stat.isDirectory()) {
+			return;
+		}
+		return readFile(filename).then(function(contents) {
+			var name = path.basename(filename, ".json");
+			externalData[name] = JSON.parse(contents);
+		});
+	}).then(function() {
+		return externalData;
 	});
 }
 

@@ -1,13 +1,17 @@
 "use strict";
 
 var rewire = require("rewire");
-var config = rewire("./config");
 var assert = require("assert");
 var FS = require("fs-mock");
 
+var config = rewire("./config");
+var fsExtra = rewire("./fs_extra");
+
 function mockFs(structure) {
 	var fs = new FS(structure);
+	fsExtra.__set__("fs", fs);
 	config.__set__("fs", fs);
+	config.__set__("fsExtra", fsExtra);
 	return fs;
 }
 
@@ -59,6 +63,24 @@ describe("config", function() {
 					});
 					config.load("/config.json").fail(function(reason) {
 						assert.notEqual(-1, reason.message.indexOf("destinationDirectory"));
+						done();
+					});
+				});
+			});
+			describe("with a valid dataDirectory containing a JSON file", function() {
+				it("should load the JSON file into the config data", function(done) {
+					mockFs({
+						"config.json": JSON.stringify({
+							"sourceDirectory": "/src",
+							"destinationDirectory": "/dest",
+							"dataDirectory": "/data"
+						}),
+						"data": {
+							"greetings.json": JSON.stringify(["hello world"])
+						}
+					});
+					config.load("/config.json").done(function(cfg) {
+						assert.equal(cfg.data.greetings[0], "hello world");
 						done();
 					});
 				});
