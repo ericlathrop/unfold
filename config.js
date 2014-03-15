@@ -3,7 +3,7 @@
 var q = require("q");
 var fs = require("fs");
 
-module.exports = function(filename) {
+function load(filename) {
 	var readFile = q.denodeify(fs.readFile.bind(fs));
 
 	return readFile(filename).then(function(data) {
@@ -16,4 +16,8 @@ module.exports = function(filename) {
 		}
 		return config;
 	});
+}
+
+module.exports = {
+	load: load
 };
