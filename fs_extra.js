@@ -13,7 +13,7 @@ function clone(src, dest, copyFunc) {
 	var srcParts = src.split(path.sep);
 	var destParts = dest.split(path.sep);
 
-	return traverse(src, function(file, fileStat) {
+	return readDirRecursive(src, function(file, fileStat) {
 		var d = destParts.concat(file.split(path.sep).slice(srcParts.length)).join(path.sep);
 		if (fileStat.isDirectory()) {
 			return stat(d).fail(function() {
@@ -22,34 +22,8 @@ function clone(src, dest, copyFunc) {
 		} else {
 			return copyFunc(file, d);
 		}
-	});
-}
-
-function traverse(file, visitFunc) {
-	var stat = q.denodeify(fs.stat.bind(fs));
-
-	return stat(file).then(function(fileStat) {
-		var p = q(visitFunc(file, fileStat));
-
-		if (fileStat.isDirectory()) {
-			return p.then(function() {
-				return traverseDir(file, visitFunc);
-			});
-		}
-		return p;
-	});
-}
-
-function traverseDir(dir, visitFunc) {
-	var readdir = q.denodeify(fs.readdir.bind(fs));
-
-	return readdir(dir).then(function(files) {
-		var promises = [];
-		for (var i = 0; i < files.length; i++) {
-			var file = path.join(dir, files[i]);
-			promises.push(traverse(file, visitFunc));
-		}
-		return q.all(promises);
+	}).all().then(function(contents) {
+		return contents.filter(function(e) { return e !== undefined; });
 	});
 }
 
@@ -73,8 +47,45 @@ function copy(src, dest) {
 	return deferred.promise;
 }
 
+function readDirRecursive(file, callback) {
+	var stat = q.denodeify(fs.stat.bind(fs));
+	var readdir = q.denodeify(fs.readdir.bind(fs));
+
+	return stat(file).then(function(fileStat) {
+		if (fileStat.isDirectory()) {
+			return readdir(file).then(function(files) {
+				function combinedDir(f) {
+					return path.join(file, f);
+				}
+				var contentsPromises = files.map(combinedDir).map(function(f) {
+					return readDirRecursive(f, callback);
+				});
+				return q.all(contentsPromises);
+			}).then(function(contents) {
+				var val = callback(file, fileStat);
+				var merged = [val];
+				return merged.concat.apply(merged, contents);
+			});
+		} else {
+			var val = callback(file, fileStat);
+			return [val];
+		}
+	});
+}
+
+function readDirFiles(file) {
+	return readDirRecursive(file, function(file, fileStat) {
+		if (!fileStat.isDirectory()) {
+			return file;
+		}
+	}).then(function(paths) {
+		return paths.filter(function(e) { return e !== undefined; });
+	});
+}
+
 module.exports = {
 	clone: clone,
-	traverse: traverse,
-	copy: copy
+	copy: copy,
+	readDirRecursive: readDirRecursive,
+	readDirFiles: readDirFiles
 };

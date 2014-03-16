@@ -31,17 +31,20 @@ function load(filename) {
 function readDataDirectory(dataDirectory) {
 	var readFile = q.denodeify(fs.readFile.bind(fs));
 
-	var externalData = {};
-	return fsExtra.traverse(dataDirectory, function(filename, stat) {
-		if (stat.isDirectory()) {
-			return;
-		}
-		return readFile(filename).then(function(contents) {
-			var name = path.basename(filename, ".json");
-			externalData[name] = JSON.parse(contents);
+	return fsExtra.readDirFiles(dataDirectory).then(function(files) {
+		var filePromises = files.map(function(f) {
+			return readFile(f).then(function(contents) {
+				var name = path.basename(f, ".json");
+				return [name, JSON.parse(contents)];
+			});
 		});
-	}).then(function() {
-		return externalData;
+		return q.all(filePromises).then(function(dataFiles) {
+			var externalData = {};
+			dataFiles.forEach(function(d) {
+				externalData[d[0]] = d[1];
+			});
+			return externalData;
+		});
 	});
 }
 

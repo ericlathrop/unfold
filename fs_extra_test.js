@@ -106,7 +106,65 @@ describe("fsExtra", function() {
 					"src.txt": "hello world"
 				});
 				fsExtra.copy("/src.txt", "/dest.txt").done(function() {
-					assert.equal("hello world", fs.readFileSync("/src.txt"));
+					assert.equal(fs.readFileSync("/src.txt"), "hello world");
+					done();
+				});
+			});
+		});
+	});
+	describe("readDirRecursive", function() {
+		describe("with nonexistant folder", function() {
+			it("should return a failing promise", function(done) {
+				fsExtra.readDirRecursive("/notThere").fail(function() {
+					done();
+				});
+			});
+		});
+		describe("with file", function() {
+			it("should return a promise that yields an array with the filename", function(done) {
+				mockFs({
+					"src.txt": "hello world"
+				});
+				fsExtra.readDirRecursive("/src.txt", function(path) {
+					return path;
+				}).done(function(data) {
+					assert.deepEqual(data, ["/src.txt"]);
+					done();
+				});
+			});
+		});
+		describe("with a directory and a file inside", function() {
+			it("should return a promise that yields an array with the filenames", function(done) {
+				mockFs({
+					"dir": {
+						"a.txt": "hello world",
+						"sub": {
+							"b.txt": "hello world",
+						}
+					}
+				});
+				fsExtra.readDirRecursive("/dir", function(path) {
+					return path;
+				}).done(function(data) {
+					assert.deepEqual(data, ["/dir", "/dir/a.txt", "/dir/sub", "/dir/sub/b.txt"]);
+					done();
+				});
+			});
+		});
+	});
+	describe("readDirFiles", function() {
+		describe("with a directory with files and directories inside", function() {
+			it("should return a promise that yields an array of the file names", function(done) {
+				mockFs({
+					"dir": {
+						"a.txt": "hello world",
+						"sub": {
+							"b.txt": "hello world",
+						}
+					}
+				});
+				fsExtra.readDirFiles("/dir").done(function(data) {
+					assert.deepEqual(data, ["/dir/a.txt", "/dir/sub/b.txt"]);
 					done();
 				});
 			});
