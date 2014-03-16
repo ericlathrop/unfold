@@ -40,8 +40,8 @@ describe("fsExtra", function() {
 					}
 				});
 				fsExtra.clone("/src", "/dest", function(src, dest) {
-					assert.equal("/src/a.txt", src);
-					assert.equal("/dest/a.txt", dest);
+					assert.equal(src, "/src/a.txt");
+					assert.equal(dest, "/dest/a.txt");
 				}).done(function() {
 					done();
 				});
@@ -56,7 +56,7 @@ describe("fsExtra", function() {
 					fsExtra.clone("/src", "/dest", function() {
 						return 42;
 					}).done(function(val) {
-						assert.equal(42, val);
+						assert.equal(val, 42);
 						done();
 					});
 				});
@@ -72,8 +72,8 @@ describe("fsExtra", function() {
 					}
 				});
 				fsExtra.clone("/src", "/dest", function(src, dest) {
-					assert.equal("/src/a/b.txt", src);
-					assert.equal("/dest/a/b.txt", dest);
+					assert.equal(src, "/src/a/b.txt");
+					assert.equal(dest, "/dest/a/b.txt");
 				}).done(function() {
 					done();
 				});
