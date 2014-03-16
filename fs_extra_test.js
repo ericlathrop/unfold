@@ -16,8 +16,7 @@ describe("fsExtra", function() {
 		describe("with nonexistant source folder", function() {
 			it("should return a failing promise", function(done) {
 				mockFs({});
-				fsExtra.clone("/src", "/dest", function() {}).then(function() {
-				}).fail(function() {
+				fsExtra.clone("/src", "/dest", function() {}).fail(function() {
 					done();
 				});
 			});
