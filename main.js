@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var config = require("./config");
 var fsExtra = require("./fs_extra");
 var transformHandlebars = require("./transform_handlebars");

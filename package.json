@@ -1,8 +1,9 @@
 {
-	"name": "ssg",
+	"name": "unfold",
 	"version": "0.0.0",
 	"description": "Static Site Generator",
 	"main": "fs_extra.js",
+	"bin": "./main.js",
 	"dependencies": {
 		"q": "^1.0.0",
 		"handlebars": "^2.0.0-alpha.2",
