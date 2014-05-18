@@ -2,9 +2,27 @@
 	"name": "unfold",
 	"version": "0.0.0",
 	"description": "Static Site Generator",
+	"keywords": [
+		"static site generator",
+		"static site",
+		"static page generator",
+		"static page"
+	],
+	"author": "Eric Lathrop <eric@ericlathrop.com> (http://ericlathrop.com)",
+	"license": "MIT",
+	"homepage": "https://github.com/ericlathrop/unfold",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ericlathrop/unfold.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ericlathrop/unfold/issues"
+	},
+
 	"main": "bin/unfold.js",
 	"bin": "bin/unfold.js",
 	"preferGlobal": true,
+
 	"dependencies": {
 		"q": "^1.0.0",
 		"handlebars": "^2.0.0-alpha.2",
@@ -16,12 +34,12 @@
 		"fs-mock": "^1.1.2",
 		"jshint": "^2.4.4"
 	},
+
 	"scripts": {
 		"test": "mocha bin && mocha lib",
 		"jshint": "jshint bin/*.js lib/*.js"
 	},
-	"author": "Eric Lathrop",
-	"license": "MIT",
+
 	"jshintConfig": {
 		"bitwise": true,
 		"camelcase": true,
