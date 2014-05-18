@@ -4,6 +4,7 @@
 	"description": "Static Site Generator",
 	"main": "bin/unfold.js",
 	"bin": "bin/unfold.js",
+	"preferGlobal": true,
 	"dependencies": {
 		"q": "^1.0.0",
 		"handlebars": "^2.0.0-alpha.2",
