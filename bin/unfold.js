@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+"use strict";
 
-var config = require("./config");
-var fsExtra = require("./fs_extra");
-var transformHandlebars = require("./transform_handlebars");
+var config = require("../lib/config");
+var fsExtra = require("../lib/fs_extra");
+var transformHandlebars = require("../lib/transform_handlebars");
 
 function main(argv) {
 	var args = argv.slice(2);
@@ -19,7 +20,7 @@ function processSite(file) {
 }
 
 function processFile(cfg, src, dest) {
-	var cfg = config.forSourceFile(src, cfg);
+	cfg = config.forSourceFile(src, cfg);
 	if (endsWith(src, ".hbs")) {
 		return transformHandlebars(src, dest, cfg);
 	}
