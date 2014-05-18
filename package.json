@@ -19,7 +19,7 @@
 		"jshint": "jshint *.js"
 	},
 	"author": "Eric Lathrop",
-	"license": "BSD",
+	"license": "MIT",
 	"jshintConfig": {
 		"bitwise": true,
 		"camelcase": true,
