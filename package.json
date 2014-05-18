@@ -34,12 +34,11 @@
 		"fs-mock": "^1.1.2",
 		"jshint": "^2.4.4"
 	},
-
 	"scripts": {
-		"test": "mocha bin && mocha lib",
-		"jshint": "jshint bin/*.js lib/*.js"
+		"mocha": "mocha bin && mocha lib",
+		"jshint": "jshint bin/*.js lib/*.js",
+		"test": "npm run jshint && npm run mocha"
 	},
-
 	"jshintConfig": {
 		"bitwise": true,
 		"camelcase": true,
