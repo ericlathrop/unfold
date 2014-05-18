@@ -18,15 +18,14 @@
 	"bugs": {
 		"url": "https://github.com/ericlathrop/unfold/issues"
 	},
-
 	"main": "bin/unfold.js",
 	"bin": "bin/unfold.js",
 	"preferGlobal": true,
-
 	"dependencies": {
-		"q": "^1.0.0",
 		"handlebars": "^2.0.0-alpha.2",
-		"merge": "^1.1.2"
+		"merge": "^1.1.2",
+		"node-sass": "^0.8.6",
+		"q": "^1.0.0"
 	},
 	"devDependencies": {
 		"mocha": "~1.17.1",
