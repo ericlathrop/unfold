@@ -15,6 +15,7 @@ The site.json file should look like:
 	"sourceDirectory": "src",
 	"destinationDirectory": "dest",
 	"dataDirectory": "data",
+	"partialsDirectory": "partials",
 	"data": {
 		"layout": "layout.html.hbs"
 	}

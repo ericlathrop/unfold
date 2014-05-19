@@ -5,6 +5,7 @@ var path = require("path");
 var q = require("q");
 var config = require("../lib/config");
 var fsExtra = require("../lib/fs_extra");
+var loadPartials = require("../lib/load_partials");
 var transformHandlebars = require("../lib/transform_handlebars");
 var transformSass = require("../lib/transform_sass");
 
@@ -18,6 +19,9 @@ function main(argv) {
 
 function processSite(file) {
 	config.load(file).then(function(cfg) {
+		if (cfg.partialsDirectory) {
+			loadPartials(cfg.partialsDirectory);
+		}
 		return fsExtra.clone(cfg.sourceDirectory, cfg.destinationDirectory, processFile.bind(undefined, cfg));
 	}).done();
 }
