@@ -1,9 +1,10 @@
 unfold
 ======
 
-A static site generator.
+A data-driven static site generator.
 
  * Supports handlebars templates.
+ * Supports SASS.
 
 Usage: `unfold site.json`
 
@@ -16,6 +17,11 @@ The site.json file should look like:
 	"dataDirectory": "data",
 	"data": {
 		"layout": "layout.html.hbs"
+	}
+	"pages": {
+		"src/specialPage.html.hbs": {
+			"layout": "specialLayout.html.hbs"
+		}
 	}
 }
 ```
