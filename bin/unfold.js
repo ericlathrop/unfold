@@ -6,6 +6,7 @@ var q = require("q");
 var config = require("../lib/config");
 var fsExtra = require("../lib/fs_extra");
 var loadPartials = require("../lib/load_partials");
+var loadHelpers = require("../lib/load_helpers");
 var transformHandlebars = require("../lib/transform_handlebars");
 var transformSass = require("../lib/transform_sass");
 
@@ -19,9 +20,15 @@ function main(argv) {
 
 function processSite(file) {
 	config.load(file).then(function(cfg) {
+		// FIXME: this should be taken care of inside the config module, and tested
 		if (cfg.partialsDirectory) {
 			loadPartials(cfg.partialsDirectory);
 		}
+		// FIXME: this should be taken care of inside the config module, and tested
+		if (cfg.helpersDirectory) {
+			loadHelpers(cfg.helpersDirectory);
+		}
+
 		return fsExtra.clone(cfg.sourceDirectory, cfg.destinationDirectory, processFile.bind(undefined, cfg));
 	}).done();
 }
