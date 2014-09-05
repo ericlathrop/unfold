@@ -26,7 +26,7 @@ The site.json file should look like:
 			"layout": "specialLayout.html.hbs"
 		}
 	}
-}f
+}
 ```
 
 Site Specification
