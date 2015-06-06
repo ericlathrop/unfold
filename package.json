@@ -1,66 +1,67 @@
 {
-	"name": "unfold",
-	"version": "0.3.0",
-	"description": "Static Site Generator",
-	"keywords": [
-		"static site generator",
-		"static site",
-		"static page generator",
-		"static page"
-	],
-	"author": "Eric Lathrop <eric@ericlathrop.com> (http://ericlathrop.com)",
-	"license": "MIT",
-	"homepage": "https://github.com/ericlathrop/unfold",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ericlathrop/unfold.git"
-	},
-	"bugs": {
-		"url": "https://github.com/ericlathrop/unfold/issues"
-	},
-	"main": "bin/unfold.js",
-	"bin": "bin/unfold.js",
-	"preferGlobal": true,
-	"dependencies": {
-		"handlebars": "^2.0.0-alpha.2",
-		"merge": "^1.1.2",
-		"node-sass": "^0.8.6",
-		"q": "^1.0.0"
-	},
-	"devDependencies": {
-		"mocha": "~1.17.1",
-		"rewire": "~2.0.0",
-		"fs-mock": "^1.1.2",
-		"jshint": "^2.4.4"
-	},
-	"scripts": {
-		"mocha": "mocha bin && mocha lib",
-		"jshint": "jshint bin/*.js lib/*.js",
-		"test": "npm run jshint && npm run mocha"
-	},
-	"jshintConfig": {
-		"bitwise": true,
-		"camelcase": true,
-		"curly": true,
-		"eqeqeq": true,
-		"forin": true,
-		"freeze": true,
-		"immed": true,
-		"indent": 4,
-		"latedef": "nofunc",
-		"newcap": true,
-		"noarg": true,
-		"noempty": true,
-		"nonbsp": true,
-		"nonew": true,
-		"quotmark": "double",
-		"unused": "strict",
-		"trailing": true,
-		"node": true,
-		"globalstrict": true,
-		"globals": {
-			"describe": false,
-			"it": false
-		}
-	}
+  "name": "unfold",
+  "version": "0.3.1",
+  "description": "Static Site Generator",
+  "keywords": [
+    "static site generator",
+    "static site",
+    "static page generator",
+    "static page"
+  ],
+  "author": "Eric Lathrop <eric@ericlathrop.com> (http://ericlathrop.com)",
+  "license": "MIT",
+  "homepage": "https://github.com/ericlathrop/unfold",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericlathrop/unfold.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ericlathrop/unfold/issues"
+  },
+  "main": "bin/unfold.js",
+  "bin": "bin/unfold.js",
+  "preferGlobal": true,
+  "dependencies": {
+    "handlebars": "^3.0.3",
+    "merge": "^1.1.2",
+    "node-sass": "^3.1.2",
+    "q": "^1.0.0"
+  },
+  "devDependencies": {
+    "fs-mock": "^1.1.3",
+    "jshint": "^2.4.4",
+    "mocha": "^2.2.5",
+    "rewire": "^2.3.3"
+  },
+  "scripts": {
+    "mocha": "mocha bin && mocha lib",
+    "jshint": "jshint bin/*.js lib/*.js",
+    "test": "npm run jshint && npm run mocha"
+  },
+  "jshintConfig": {
+    "bitwise": true,
+    "camelcase": true,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "freeze": true,
+    "immed": true,
+    "indent": 4,
+    "latedef": "nofunc",
+    "newcap": true,
+    "noarg": true,
+    "noempty": true,
+    "nonbsp": true,
+    "nonew": true,
+    "quotmark": "double",
+    "unused": "strict",
+    "trailing": true,
+    "node": true,
+    "mocha": true,
+    "globalstrict": true,
+    "globals": {
+      "describe": false,
+      "it": false
+    }
+  }
 }
