@@ -25,7 +25,7 @@
     "handlebars": "^3.0.3",
     "merge": "^1.2.0",
     "node-sass": "^3.1.2",
-    "q": "^1.0.0"
+    "q": "^1.4.1"
   },
   "devDependencies": {
     "jshint": "^2.8.0",
