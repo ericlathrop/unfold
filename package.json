@@ -1,6 +1,6 @@
 {
   "name": "unfold",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Static Site Generator",
   "keywords": [
     "static site generator",
@@ -28,39 +28,13 @@
     "q": "^1.4.1"
   },
   "devDependencies": {
-    "jshint": "^2.8.0",
+    "eslint": "^0.24.0",
     "mocha": "^2.2.5",
     "mock-fs": "^2.7.0"
   },
   "scripts": {
     "mocha": "mocha bin && mocha lib",
-    "jshint": "jshint bin/*.js lib/*.js",
-    "test": "npm run jshint && npm run mocha"
-  },
-  "jshintConfig": {
-    "bitwise": true,
-    "camelcase": true,
-    "curly": true,
-    "eqeqeq": true,
-    "forin": true,
-    "freeze": true,
-    "immed": true,
-    "indent": 4,
-    "latedef": "nofunc",
-    "newcap": true,
-    "noarg": true,
-    "noempty": true,
-    "nonbsp": true,
-    "nonew": true,
-    "quotmark": "double",
-    "unused": "strict",
-    "trailing": true,
-    "node": true,
-    "mocha": true,
-    "globalstrict": true,
-    "globals": {
-      "describe": false,
-      "it": false
-    }
+    "lint": "eslint bin lib",
+    "test": "npm run lint && npm run mocha"
   }
 }

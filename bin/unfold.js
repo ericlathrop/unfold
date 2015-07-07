@@ -10,12 +10,22 @@ var loadHelpers = require("../lib/load_helpers");
 var transformHandlebars = require("../lib/transform_handlebars");
 var transformSass = require("../lib/transform_sass");
 
-function main(argv) {
-	var args = argv.slice(2);
+function endsWith(str, suffix) {
+	return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
 
-	for (var i = 0; i < args.length; i++) {
-		processSite(args[i]);
+function processFile(cfg, src, dest) {
+	cfg = config.forSourceFile(src, cfg);
+	if (endsWith(src, ".hbs")) {
+		return transformHandlebars(src, dest, cfg);
 	}
+	if (endsWith(src, ".scss") || endsWith(src, ".sass")) {
+		if (path.basename(src)[0] === "_") {
+			return q();
+		}
+		return transformSass(src, dest);
+	}
+	return fsExtra.copy(src, dest);
 }
 
 function processSite(file) {
@@ -33,22 +43,12 @@ function processSite(file) {
 	}).done();
 }
 
-function processFile(cfg, src, dest) {
-	cfg = config.forSourceFile(src, cfg);
-	if (endsWith(src, ".hbs")) {
-		return transformHandlebars(src, dest, cfg);
-	}
-	if (endsWith(src, ".scss") || endsWith(src, ".sass")) {
-		if (path.basename(src)[0] === "_") {
-			return q();
-		}
-		return transformSass(src, dest);
-	}
-	return fsExtra.copy(src, dest);
-}
+function main(argv) {
+	var args = argv.slice(2);
 
-function endsWith(str, suffix) {
-	return str.indexOf(suffix, str.length - suffix.length) !== -1;
+	for (var i = 0; i < args.length; i++) {
+		processSite(args[i]);
+	}
 }
 
 main(process.argv);

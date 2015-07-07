@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.3.4] - 2015-07-06
+### Changed
+- Switch from jshint to eslint
+
 ## [0.3.3] - 2015-06-17
 ### Changed
 - Update dependency libraries
