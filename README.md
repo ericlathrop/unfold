@@ -5,9 +5,16 @@ A data-driven static site generator.
 
  * Supports handlebars templates.
  * Supports custom partials and helpers for handlebars.
- * Supports SASS.
+ * Supports SASS now with Autoprefixer!
 
 Usage: `unfold site.json`
+
+NPM script example (package.json in your project):
+
+```
+"build": "unfold site.json"
+```
+
 
 The site.json file should look like:
 
