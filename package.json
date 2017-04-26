@@ -22,9 +22,11 @@
   "bin": "bin/unfold.js",
   "preferGlobal": true,
   "dependencies": {
+    "autoprefixer": "^6.7.7",
     "handlebars": "^3.0.3",
     "merge": "^1.2.0",
     "node-sass": "^3.1.2",
+    "postcss": "^5.2.17",
     "q": "^1.4.1"
   },
   "devDependencies": {
